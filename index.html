@@ -14,9 +14,12 @@
              
             document.addEventListener("deviceready", loaded, false);
              
+            var watchID = null;
+             
             function loaded() {
-                navigator.geolocation.getCurrentPosition(success, error);
+                watchID = navigator.geolocation.watchPosition(success, error, { frequency: 3000 });
             }
+             
              
             function success(position) {
                 var element = document.getElementById('geolocation');
@@ -27,7 +30,8 @@
                 'Altitude Accuracy: '   + position.coords.altitudeAccuracy      + '<br />' +
                 'Heading: '             + position.coords.heading               + '<br />' +
                 'Speed: '               + position.coords.speed                 + '<br />' +
-                'Timestamp: '           + new Date(position.timestamp)          + '<br />';
+                'Timestamp: '           + new Date(position.timestamp)          + '<br />' +
+                '<hr>' + element.innerHTML;
             }
              
             function error(error) {
